@@ -3,9 +3,9 @@ pipeline {
    stages {
        stage('Build Code') {
            steps {
-               sh """
-               echo "Building Artifact for project samplewebapp"
-			   """
+               sh "mvn clean package"
+               echo "Building Artifact for project"
+
                
            }
        }
@@ -13,22 +13,22 @@ pipeline {
        {
        when
        {
-       branch "feature*"
+       branch "master*"
        }
        steps
        {
-       echo " It is only for Feature branch"
+       echo " It is only for master branch"
        }
        }
 
        stage('Deploy Code') {
 	   
           steps {
-               sh """
+               sh "mvn tomcat11:deploy"
                echo "Deploying Code"
-			   """
                
           }
       }
       }
       }
+
